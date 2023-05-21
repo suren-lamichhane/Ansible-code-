@@ -1,0 +1,9 @@
+---
+- hosts: ec2
+  become: true
+  vars_files:
+    - vars/main.yaml
+  roles:
+    - apache
+    - Mysql
+    - php

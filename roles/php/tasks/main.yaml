@@ -1,0 +1,34 @@
+---
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install PHP and related packages
+  apt:
+    name:
+      - php
+    state: present
+
+# - name: Start PHP FPM service
+#   service:
+#     name: php7.4-fpm
+#     state: started
+#     enabled: yes
+- name: Remove contents of /var/www/html directory
+  file:
+    path: /var/www/html/
+    state: absent
+   
+    force: yes
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+
+- name: Clone User_data_IndexFile repository
+  git:
+    repo: https://github.com/suren-lamichhane/User_data_IndexFile.git
+    dest: /var/www/html/
+    clone: yes      

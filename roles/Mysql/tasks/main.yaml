@@ -1,0 +1,44 @@
+- name: update
+  apt:
+    update_cache: yes
+- name: Install required packages
+  apt:
+    name:
+      - python3-pymysql
+      - python3-mysqldb
+      - libmysqlclient-dev
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install MySQL
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Start MySQL service
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+
+- name: Creating mysql user
+  mysql_user:
+    name: "{{db_user}}"
+    password: "{{db_pass}}"
+    login_unix_socket: /run/mysqld/mysqld.sock
+    host: 'localhost'
+    priv: '*.*:ALL'
+    state: present
+
+- name: creating database
+  mysql_db:
+    name: "{{db_name}}"
+    login_user: "{{db_user}}"
+    login_password: "{{db_pass}}"
+    # priv: '.:ALL'
+    state: present
+

@@ -1,0 +1,11 @@
+- name: Update apt cache
+  ansible.builtin.apt: 
+    update_cache: yes
+- name: Install Apache
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+- name: Start Apache service
+  ansible.builtin.service:
+    name: apache2
+    state: started
