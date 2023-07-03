@@ -1,5 +1,6 @@
+---
 - name: Update apt cache
-  ansible.builtin.apt: 
+  ansible.builtin.apt:
     update_cache: yes
 - name: Install Apache
   ansible.builtin.apt:
